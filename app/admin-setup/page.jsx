@@ -1,13 +1,12 @@
 'use client'
 import React, { useState } from 'react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 const AdminSetup = () => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-  const supabase = createClient()
 
   const handleSetAdmin = async (e) => {
     e.preventDefault()
