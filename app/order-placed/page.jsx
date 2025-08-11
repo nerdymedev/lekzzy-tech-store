@@ -3,13 +3,12 @@ import { assets } from '@/assets/assets'
 import { useAppContext } from '@/context/AppContext'
 import { formatCurrency } from '@/lib/utils'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import { getOrderById } from '@/lib/orderService'
 
-const OrderPlaced = () => {
-
+const OrderPlacedContent = () => {
   const { router, currency } = useAppContext()
   const searchParams = useSearchParams()
   const [orderDetails, setOrderDetails] = useState(null)
@@ -161,6 +160,14 @@ const OrderPlaced = () => {
         </div>
       </div>
     </>
+  )
+}
+
+const OrderPlaced = () => {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="text-lg">Loading order details...</div></div>}>
+      <OrderPlacedContent />
+    </Suspense>
   )
 }
 
